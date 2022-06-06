@@ -19,7 +19,7 @@ The contributor who received 30 of the Coordinape Circle tokens from his fellow 
 
 ## 3. Output (`$NATION` Tokens) ☁️🇺🇳
 
-Assuming a Circle budget of 10 `$NATION` tokens, 10% would equal 1 `$NATION`:
+Assuming a Circle budget of 10 `$NATION` tokens, 10% would equal 1.0 `$NATION`:
 
 ```csv
 token_type,token_address,receiver,amount,id
