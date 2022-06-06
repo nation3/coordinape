@@ -15,11 +15,11 @@ No,name,address,received,sent,epoch_number,Date
 
 In the example above, a total of `100 + 100 + 100 = 300` Coordinape Circle tokens were allocated.
 
-The contributor who received 40 of the Coordinape Circle tokens from his fellow apes would then get `40 / 300 = 13%` of the Circle's budget.
+The contributor who received 40 of the Coordinape Circle tokens from his fellow apes would then get `40 / 300 = 13.33%` of the Circle's budget.
 
 ## 3. Output (`$NATION` Tokens) ☁️🇺🇳
 
-Assuming a Circle budget of 10 `$NATION` tokens, 13% would equal 1.33 `$NATION`:
+Assuming a Circle budget of 10 `$NATION` tokens, 13.33% would equal 1.333 `$NATION`:
 
 ```csv
 token_type,token_address,receiver,amount,id
