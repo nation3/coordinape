@@ -14,7 +14,7 @@ No,name,address,received,sent,epoch_number,Date
 
 In the example above, a total of `100 + 100 = 200` Coordinape Circle tokens were allocated.
 
-The contributor who received 20 of the Coordinape Circle tokens from his fellow apes would then get `40 / 200 = 20%` of the Circle's budget.
+The contributor who received 40 of the Coordinape Circle tokens from his fellow apes would then get `40 / 200 = 20%` of the Circle's budget.
 
 ## 3. Output (`$NATION` Tokens) ☁️🇺🇳
 
