@@ -93,10 +93,7 @@ convertCoordinapePayouts();
 function writeToDisperseCSV(guildBudget, filePathDisperse, csvRows) {
     console.log('writeToDisperseCSV');
     // Calculate total amount of Coordinape Circle tokens allocated
-    let totalCircleTokensAllocated = 0;
-    csvRows.forEach(function (row) {
-        totalCircleTokensAllocated += Number(row.received);
-    });
+    let totalCircleTokensAllocated = summarizeCircleTokens(csvRows);
     console.log('totalCircleTokensAllocated:', totalCircleTokensAllocated);
     // Set column names
     const writer = csvWriter.createObjectCsvWriter({
@@ -112,10 +109,7 @@ function writeToDisperseCSV(guildBudget, filePathDisperse, csvRows) {
 function writeToGnosisCSV(guildBudget, filePathGnosis, csvRows) {
     console.log('writeToGnosisCSV');
     // Calculate total amount of Coordinape Circle tokens allocated
-    let totalCircleTokensAllocated = 0;
-    csvRows.forEach(function (row) {
-        totalCircleTokensAllocated += Number(row.received);
-    });
+    let totalCircleTokensAllocated = summarizeCircleTokens(csvRows);
     console.log('totalCircleTokensAllocated:', totalCircleTokensAllocated);
     // Set column names
     csvRows.forEach(function (row) {
@@ -139,4 +133,16 @@ function writeToGnosisCSV(guildBudget, filePathGnosis, csvRows) {
         ]
     });
     writer.writeRecords(csvRows);
+}
+/**
+ * Calculates the total amount of Coordinape Circle tokens allocated by
+ * summarizing the `received` column.
+ */
+function summarizeCircleTokens(csvRows) {
+    console.log('summarizeCircleTokens');
+    let totalCircleTokensAllocated = 0;
+    csvRows.forEach(function (row) {
+        totalCircleTokensAllocated += Number(row.received);
+    });
+    return totalCircleTokensAllocated;
 }

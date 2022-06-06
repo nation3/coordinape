@@ -76,10 +76,7 @@ function writeToDisperseCSV(guildBudget : number, filePathDisperse : string, csv
     console.log('writeToDisperseCSV')
 
     // Calculate total amount of Coordinape Circle tokens allocated
-    let totalCircleTokensAllocated : number = 0
-    csvRows.forEach(function(row) {
-        totalCircleTokensAllocated += Number(row.received)
-    })
+    let totalCircleTokensAllocated = summarizeCircleTokens(csvRows)
     console.log('totalCircleTokensAllocated:', totalCircleTokensAllocated)
 
     // Set column names
@@ -100,10 +97,7 @@ function writeToGnosisCSV(guildBudget : number, filePathGnosis: string, csvRows:
     console.log('writeToGnosisCSV')
 
     // Calculate total amount of Coordinape Circle tokens allocated
-    let totalCircleTokensAllocated : number = 0
-    csvRows.forEach(function(row) {
-        totalCircleTokensAllocated += Number(row.received)
-    })
+    let totalCircleTokensAllocated = summarizeCircleTokens(csvRows)
     console.log('totalCircleTokensAllocated:', totalCircleTokensAllocated)
 
     // Set column names
@@ -131,4 +125,17 @@ function writeToGnosisCSV(guildBudget : number, filePathGnosis: string, csvRows:
     })
 
     writer.writeRecords(csvRows)
+}
+
+/**
+ * Calculates the total amount of Coordinape Circle tokens allocated by 
+ * summarizing the `received` column.
+ */
+function summarizeCircleTokens(csvRows: any[]): number {
+    console.log('summarizeCircleTokens')
+    let totalCircleTokensAllocated : number = 0
+    csvRows.forEach(function(row) {
+        totalCircleTokensAllocated += Number(row.received)
+    })
+    return totalCircleTokensAllocated
 }
