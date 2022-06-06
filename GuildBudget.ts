@@ -1,5 +1,5 @@
 /**
- * The amount of $NATION budgeted for each guild.
+ * The weekly amount of $NATION budgeted for each guild.
  */
 export enum GuildBudget {
     CommunityGuild = 0.10,
