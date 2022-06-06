@@ -13,7 +13,7 @@ No,name,address,received,sent,epoch_number,Date
 
 ## 2. Conversion 🍌🦍 → ☁️🇺🇳
 
-In the example above, a total of `100 + 100 + 300 = 300` Coordinape Circle tokens were allocated.
+In the example above, a total of `100 + 100 + 100 = 300` Coordinape Circle tokens were allocated.
 
 The contributor who received 40 of the Coordinape Circle tokens from his fellow apes would then get `40 / 300 = 13%` of the Circle's budget.
 
