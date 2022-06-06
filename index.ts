@@ -1,9 +1,8 @@
 import * as fs from 'fs'
 import * as path from 'path'
-import * as csvParser from 'csv-parser'
 import { GuildBudget } from './GuildBudget'
-
-const csv = require('csv-parser')
+const csvParser = require('csv-parser')
+const csvWriter = require('csv-writer')
 
 export function convertCoordinapePayouts(circlesDir: string = 'coordinape-circles') {
     console.log('convertCoordinapePayouts')
@@ -21,16 +20,16 @@ export function convertCoordinapePayouts(circlesDir: string = 'coordinape-circle
             console.log(`\ncircleDir: "${circleDir}"`)
 
             // Get the guild's budget
-            let guildBudget;
+            let guildBudget : number = 0
             for (let guildName in GuildBudget) {
                 if (circleDir.replaceAll('-', '').endsWith(guildName.toLowerCase())) {
-                    guildBudget = GuildBudget[guildName]
+                    guildBudget = Number(GuildBudget[guildName])
                     break
                 }
             }
             console.log('guildBudget:', guildBudget)
-            if (guildBudget == undefined) {
-                console.error('No matching guild name found: ' + circleDir)
+            if (guildBudget == 0) {
+                console.error('No budget found for guild: ' + circleDir)
                 return
             }
             
@@ -45,13 +44,24 @@ export function convertCoordinapePayouts(circlesDir: string = 'coordinape-circle
                         // Read the rows of data from the CSV file
                         const csvRows: any[] = []
                         fs.createReadStream(filePath)
-                            .pipe(csv(['No', 'name', 'address', 'received', 'sent', 'epoch_number', 'Date']))
+                            .pipe(csvParser({ 
+                                    headers: ['No', 'name', 'address', 'received', 'sent', 'epoch_number', 'Date'],
+                                    skipLines: 1
+                                }))
                             .on('data', (row: any) => csvRows.push(row))
                             .on('end', () => {
                                 console.log('\nfilePath', filePath)
                                 console.log('csvRows:\n', csvRows)
 
-                                // TODO
+                                // Generate CSV for Disperse.app
+                                const filePathDisperse = filePath.replace('.csv', '_disperse.csv')
+                                console.log('filePathDisperse', filePathDisperse)
+                                writeToDisperseCSV(guildBudget, filePathDisperse, csvRows);
+
+                                // Generate CSV for Gnosis Safe
+                                const filePathGnosis = filePath.replace('.csv', '_gnosis.csv')
+                                console.log('filePathGnosis', filePathGnosis)
+                                writeToGnosisCSV(guildBudget, filePathGnosis, csvRows)
                             })
                     }
                 })
@@ -61,3 +71,64 @@ export function convertCoordinapePayouts(circlesDir: string = 'coordinape-circle
 }
 
 convertCoordinapePayouts()
+
+function writeToDisperseCSV(guildBudget : number, filePathDisperse : string, csvRows: any[]) {
+    console.log('writeToDisperseCSV')
+
+    // Calculate total amount of Coordinape Circle tokens allocated
+    let totalCircleTokensAllocated : number = 0
+    csvRows.forEach(function(row) {
+        totalCircleTokensAllocated += Number(row.received)
+    })
+    console.log('totalCircleTokensAllocated:', totalCircleTokensAllocated)
+
+    // Set column names
+    const writer = csvWriter.createObjectCsvWriter({
+        path: filePathDisperse,
+        header: ['address', 'received']
+    })
+
+    // Set $NATION amount to match the percentage of total Circle tokens allocated
+    csvRows.forEach(function(row) {
+        row.received = (row.received / totalCircleTokensAllocated) * guildBudget
+    })
+
+    writer.writeRecords(csvRows)
+}
+
+function writeToGnosisCSV(guildBudget : number, filePathGnosis: string, csvRows: any[]) {
+    console.log('writeToGnosisCSV')
+
+    // Calculate total amount of Coordinape Circle tokens allocated
+    let totalCircleTokensAllocated : number = 0
+    csvRows.forEach(function(row) {
+        totalCircleTokensAllocated += Number(row.received)
+    })
+    console.log('totalCircleTokensAllocated:', totalCircleTokensAllocated)
+
+    // Set column names
+    csvRows.forEach(function(row) {
+        row.token_type = 'erc20'
+        row.token_address = '0x333A4823466879eeF910A04D473505da62142069'
+        row.receiver = row.address
+        row.amount = row.received
+    })
+    
+    // Set $NATION amount to match the percentage of total Circle tokens allocated
+    csvRows.forEach(function(row) {
+        row.amount = (row.amount / totalCircleTokensAllocated) * guildBudget
+    })
+    
+    const writer = csvWriter.createObjectCsvWriter({
+        path: filePathGnosis,
+        header: [
+            {id: 'token_type', title: 'token_type'},
+            {id: 'token_address', title: 'token_address'},
+            {id: 'receiver', title: 'receiver'},
+            {id: 'amount', title: 'amount'},
+            {id: 'id', title: 'id'}
+        ]
+    })
+
+    writer.writeRecords(csvRows)
+}

@@ -27,6 +27,7 @@
   "homepage": "https://github.com/nation3/coordinape#readme",
   "dependencies": {
     "@types/node": "^17.0.40",
-    "csv-parser": "^3.0.0"
+    "csv-parser": "^3.0.0",
+    "csv-writer": "^1.6.0"
   }
 }
