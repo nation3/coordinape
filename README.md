@@ -6,15 +6,15 @@ This code converts CSVs exported from https://app.coordinape.com into a format t
 
 ```csv
 No,name,address,received,sent,epoch_number,Date
-1,ape1,0x11115abfa9b2a7e18a610f489fb3510765461111,20,50,1,June 1 2022 12:00 AM UTC - June 5 2022 12:00 AM UTC
-2,ape2,0x222272f7b5c075ea5fdeb423da95312c4b992222,30,50,1,June 1 2022 12:00 AM UTC - June 5 2022 12:00 AM UTC
+1,ape1,0x11115abfa9b2a7e18a610f489fb3510765461111,40,100,1,June 1 2022 12:00 AM UTC - June 5 2022 12:00 AM UTC
+2,ape2,0x222272f7b5c075ea5fdeb423da95312c4b992222,60,100,1,June 1 2022 12:00 AM UTC - June 5 2022 12:00 AM UTC
 ```
 
 ## 2. Conversion 🍌🦍 → ☁️🇺🇳
 
-In the example above, a total of `50 + 50 = 100` Coordinape Circle tokens were allocated.
+In the example above, a total of `100 + 100 = 200` Coordinape Circle tokens were allocated.
 
-The contributor who received 20 of the Coordinape Circle tokens from his fellow apes would then get `20 / 100 = 20%` of the Circle's budget.
+The contributor who received 20 of the Coordinape Circle tokens from his fellow apes would then get `40 / 200 = 20%` of the Circle's budget.
 
 ## 3. Output (`$NATION` Tokens) ☁️🇺🇳
 
