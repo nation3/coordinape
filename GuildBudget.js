@@ -2,7 +2,7 @@
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.GuildBudget = void 0;
 /**
- * The amount of $NATION budgeted for each guild.
+ * The weekly amount of $NATION budgeted for each guild.
  */
 var GuildBudget;
 (function (GuildBudget) {
