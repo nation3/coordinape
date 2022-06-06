@@ -1,1 +1,25 @@
-
+{
+  "name": "@nation3/coordinape-payouts",
+  "version": "1.0.0",
+  "description": "Coordinape Payouts 🦍",
+  "main": "index.js",
+  "devDependencies": {},
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/nation3/coordinape.git"
+  },
+  "keywords": [
+    "csv",
+    "gnosis",
+    "coordinape"
+  ],
+  "author": "Nation3",
+  "license": "GPL-3.0",
+  "bugs": {
+    "url": "https://github.com/nation3/coordinape/issues"
+  },
+  "homepage": "https://github.com/nation3/coordinape#readme"
+}
