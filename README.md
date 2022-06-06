@@ -8,7 +8,7 @@ This code converts CSVs exported from https://app.coordinape.com into a format t
 npm run build
 ```
 
-## Usage
+## Convert CSVs
 
 ```javascript
 node index.js
