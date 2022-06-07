@@ -60,7 +60,8 @@ export function convertCoordinapePayouts(circlesDir: string = 'coordinape-circle
                                 // Set guild's budgeted $NATION amount to match the percentage of total Circle tokens allocated
                                 console.log('guildBudget:', guildBudget)
                                 csvRows.forEach(function(row) {
-                                    row.received = (row.received / totalCircleTokensAllocated) * guildBudget
+                                    const contributorPercentage : number = (row.received / totalCircleTokensAllocated)
+                                    row.received = contributorPercentage * guildBudget
                                 })
 
                                 // Generate CSV for Disperse.app
