@@ -53,13 +53,6 @@ export function convertCoordinapePayouts(circlesDir: string = 'coordinape-circle
                                 console.log('\nfilePath', filePath)
                                 console.log('csvRows:\n', csvRows)
 
-                                // "address" → "receiver"
-                                // "received" → "amount"
-                                csvRows.forEach(function(row) {
-                                    row.receiver = row.address
-                                    row.amount = row.received
-                                })
-
                                 // Calculate total amount of Coordinape Circle tokens allocated
                                 let totalCircleTokensAllocated = summarizeCircleTokens(csvRows)
                                 console.log('totalCircleTokensAllocated:', totalCircleTokensAllocated)
@@ -67,7 +60,7 @@ export function convertCoordinapePayouts(circlesDir: string = 'coordinape-circle
                                 // Set guild's budgeted $NATION amount to match the percentage of total Circle tokens allocated
                                 console.log('guildBudget:', guildBudget)
                                 csvRows.forEach(function(row) {
-                                    row.amount = (row.amount / totalCircleTokensAllocated) * guildBudget
+                                    row.received = (row.received / totalCircleTokensAllocated) * guildBudget
                                 })
 
                                 // Generate CSV for Disperse.app
@@ -95,7 +88,7 @@ function writeToDisperseCSV(guildBudget : number, filePathDisperse : string, csv
     // Set column names
     const writer = csvWriter.createObjectCsvWriter({
         path: filePathDisperse,
-        header: ['receiver', 'amount']
+        header: ['address', 'received']
     })
 
     writer.writeRecords(csvRows)
@@ -115,8 +108,8 @@ function writeToGnosisCSV(guildBudget : number, filePathGnosis: string, csvRows:
         header: [
             {id: 'token_type', title: 'token_type'},
             {id: 'token_address', title: 'token_address'},
-            {id: 'receiver', title: 'receiver'},
-            {id: 'amount', title: 'amount'},
+            {id: 'address', title: 'receiver'},
+            {id: 'received', title: 'amount'},
             {id: 'id', title: 'id'}
         ]
     })
